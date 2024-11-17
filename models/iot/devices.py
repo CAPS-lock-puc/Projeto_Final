@@ -6,5 +6,5 @@ class Device(db.Model):
     name = db.Column(db.String(50))
     is_active = db.Column(db.Boolean, nullable=False, default=False)
 
-    sensors = db.relationship('Sensor', backref='device', lazy=True)
+    sensors_abelhas = db.relationship('Sensor_abelha', backref='device', lazy=True)
     actuators = db.relationship('Actuator', backref='device', lazy=True)

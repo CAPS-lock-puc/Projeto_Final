@@ -1,3 +1,3 @@
 from models.db import db
 from models.iot.devices import Device
-from models.iot.sensors import Sensor
+from models.iot.sensors_abelhas import Sensor_abelhas
