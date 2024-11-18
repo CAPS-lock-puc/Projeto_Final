@@ -67,6 +67,7 @@
             <div class="box dark-box">
                 <div class="box-title">Sensores e Dados</div>
                 <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
+            {% if sensors|length> 0 %}
                 <table>
                     <tr>
                         <th>Sensor</th>
@@ -122,6 +123,7 @@
                         {% endfor %}
                     </table>
                 </div>
+            {%endif%}
             </div>
         </div>
     </div>
