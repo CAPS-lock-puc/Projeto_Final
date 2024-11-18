@@ -22,4 +22,8 @@ def create_app():
     def index():
         return render_template('home.html')
     
+    @app.route('/admpage')
+    def admpage():
+        return render_template('admpage.html')
+    
     return app
