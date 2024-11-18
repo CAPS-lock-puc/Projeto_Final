@@ -3,8 +3,8 @@ from models.iot.sensors_abelhas import Sensor_abelhas
 
 sensors_abelhas_ = Blueprint('sensor_abelhas', __name__, template_folder='views')
 
-@sensors_abelhas_.route('/register_sensor_abelhas')
-def register_sensor_abelhas():
+@sensors_abelhas_.route('/abelhasadm')
+def abelhasadm():
     return render_template('abelhasadm.html')
 
 @sensors_abelhas_.route('/add_sensor_abelhas', methods=['POST'])
