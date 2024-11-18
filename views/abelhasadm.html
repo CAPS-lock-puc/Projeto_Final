@@ -36,18 +36,19 @@
                     <p>Nenhum alerta no momento.</p>
                 </div>
                 <div class="box">
-                    <div class="box-title">Cadastro Sensores/Atuadores</div>
-                    <form action="/add_sensor_atuador_abelhas" method="POST">
-                        <p><label for="item_type">Tipo:</label></p>
-                        <p><select id="item_type" name="item_type" required>
-                                <option value="sensor">Sensor</option>
-                                <option value="atuador">Atuador</option>
-                            </select></p>
-                        <p><label for="item_name">Nome do Item:</label></p>
-                        <p><input type="text" id="item_name" name="item_name" required></p>
-                        <p><label for="item_value">Valor Inicial:</label></p>
-                        <p><input type="number" step="any" id="item_value" name="item_value" required></p>
-                        <p><input type="submit" value="Cadastrar"></p>
+                    <div class="box-title">Cadastro Sensores</div>
+                    <form action = "http://localhost:8080/add_sensor_abelhas" method = "post">
+                        <p>Nome:</p>
+                        <p><input type = "text" name = "name" placeholder="Nome do Sensor" required/></p>
+                        <p>Unidade de Medida:</p>
+                        <p><input type = "text" name = "unit" placeholder="Unidade de Media" required/></p>
+                        <p>Tópico MQTT:</p>
+                        <p><input type = "text" name = "topic" placeholder="Tópico MQTT" required/></p>
+                        <div>
+                            <input type="checkbox" id="is_active" name="is_active" checked />
+                            <label for="is_active">Ativo?</label>
+                          </div>
+                        <p><input type = "submit" value = "Cadastrar" /></p>
                     </form>
                 </div>
             </div>

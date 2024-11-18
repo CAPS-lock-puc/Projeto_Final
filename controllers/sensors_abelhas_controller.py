@@ -9,11 +9,11 @@ def register_sensor_abelhas():
 
 @sensors_abelhas_.route('/add_sensor_abelhas', methods=['POST'])
 def add_sensor_abelhas():
-    name = request.form.get['name']
-    unit = request.form.get['unit']
-    topic = request.form.get['topic']
-    is_active = True if request.form.get['is_active'] == 'on' else False
+    name = request.form['name']
+    topic = request.form['topic']
+    unit = request.form['unit']
+    is_active = True if request.form.get("is_active") == "on" else False
 
-    Sensor_abelhas.save_sensor_abelhas(name, unit, topic, is_active)
+    Sensor_abelhas.save_sensor_abelhas(name, topic, unit, is_active)
 
-    return redirect(url_for('sensor_abelhas.sensor_abelhas'))
+    return redirect(url_for('sensor_abelhas.register_sensor_abelhas'))

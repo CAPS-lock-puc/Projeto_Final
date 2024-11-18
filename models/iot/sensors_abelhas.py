@@ -8,9 +8,9 @@ class Sensor_abelhas(db.Model):
     unit = db.Column(db.String(50))
     topic = db.Column(db.String(50))
 
-    def save_sensor_abelhas(name, device_id, unit, topic, is_active):
+    def save_sensor_abelhas(name, unit, topic, is_active):
         device = Device(name=name, is_active=is_active)
-        sensor_abelha = Sensor_abelhas(device_id=device_id, unit=unit, topic=topic)
+        sensor_abelha = Sensor_abelhas(device_id=device.id, unit=unit, topic=topic)
 
         device.sensors_abelhas.append(sensor_abelha)
         db.session.add(device)
