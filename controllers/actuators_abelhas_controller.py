@@ -12,4 +12,4 @@ def add_actuator_abelhas():
 
     Actuator_abelhas.save_actuator_abelhas(name, topic, unit, is_active)
 
-    return redirect(url_for('actuators_abelhas.register_actuator_abelhas'))
+    return redirect(url_for('sensor_abelhas.abelhasadm'))

@@ -16,4 +16,4 @@ def add_sensor_abelhas():
 
     Sensor_abelhas.save_sensor_abelhas(name, topic, unit, is_active)
 
-    return redirect(url_for('sensor_abelhas.register_sensor_abelhas'))
+    return redirect(url_for('sensor_abelhas.abelhasadm'))
