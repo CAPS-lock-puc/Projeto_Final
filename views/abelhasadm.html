@@ -4,12 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABELHAS: ADMINISTRADOR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/abelhasadm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FFB300;
+            --secondary-color: #FFA000;
+            --background-color: #FFF8E1;
+            --box-background: #ffffff;
+            --text-color: #333333;
+            --text-color-light: #ffffff;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            grid-column: 1 / -1;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        .box {
+            background-color: var(--box-background);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .box-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        .split-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .dark-box {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+        .dark-box .box-title {
+            color: var(--text-color);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: var(--secondary-color);
+            color: var(--text-color-light);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: var(--primary-color);
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 5px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            background-color: var(--box-background);
+        }
+        .dark-box th {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+        .dark-box tr:hover td {
+            background-color: #f5f5f5;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.2);
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .container, .split-box {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
-        var socket = io(); // Inicializando o socket
-
+        var socket = io();
         socket.on('update_data', function(data) {
             if (data.sensor === 'sensor_umidade') {
                 const valueElement = document.getElementById('sensor_umidade');
@@ -29,104 +131,104 @@
 <body>
     <div class="container">
         <h1>ABELHAS: ADMINISTRADOR</h1>
-        <div class="left-column">
-            <div class="split-box">
-                <div class="box">
-                    <div class="box-title">Cadastro Actuators</div>
-                    <form action = "http://localhost:8080/add_actuator_abelhas" method = "post">
-                        <p>Nome:</p>
-                        <p><input type = "text" name = "name" placeholder="Nome do Atuador" required/></p>
-                        <p>Unidade de Medida:</p>
-                        <p><input type = "text" name = "unit" placeholder="Unidade de Media" required/></p>
-                        <p>Tópico MQTT:</p>
-                        <p><input type = "text" name = "topic" placeholder="Tópico MQTT" required/></p>
-                        <div>
-                            <input type="checkbox" id="is_active" name="is_active" checked />
-                            <label for="is_active">Ativo?</label>
-                          </div>
-                        <p><input type = "submit" value = "Cadastrar" /></p>
-                    </form>
-                </div>
-                <div class="box">
-                    <div class="box-title">Cadastro Sensores</div>
-                    <form action = "http://localhost:8080/add_sensor_abelhas" method = "post">
-                        <p>Nome:</p>
-                        <p><input type = "text" name = "name" placeholder="Nome do Sensor" required/></p>
-                        <p>Unidade de Medida:</p>
-                        <p><input type = "text" name = "unit" placeholder="Unidade de Media" required/></p>
-                        <p>Tópico MQTT:</p>
-                        <p><input type = "text" name = "topic" placeholder="Tópico MQTT" required/></p>
-                        <div>
-                            <input type="checkbox" id="is_active" name="is_active" checked />
-                            <label for="is_active">Ativo?</label>
-                          </div>
-                        <p><input type = "submit" value = "Cadastrar" /></p>
-                    </form>
-                </div>
+        
+        <div class="split-box">
+            <div class="box">
+                <div class="box-title">Cadastro Actuators</div>
+                <form action="http://localhost:8080/add_actuator_abelhas" method="post">
+                    <input type="text" name="name" placeholder="Nome do Atuador" required/>
+                    <input type="text" name="unit" placeholder="Unidade de Medida" required/>
+                    <input type="text" name="topic" placeholder="Tópico MQTT" required/>
+                    <div>
+                        <input type="checkbox" id="is_active_actuator" name="is_active" checked />
+                        <label for="is_active_actuator">Ativo?</label>
+                    </div>
+                    <button type="submit">Cadastrar</button>
+                </form>
             </div>
-            <div class="box sub-section">
-                <div class="box-title">
-                    Planejamento de Irrigação
-                    <span class="arrow">↗</span>
-                </div>
-                <div class="botao_funcao">
-                    <form action="/publish" method="POST">
-                        <button type="submit" name="action" value="abelha">On / Off</button>
-                    </form>
-                </div>
+            <div class="box">
+                <div class="box-title">Cadastro Sensores</div>
+                <form action="http://localhost:8080/add_sensor_abelhas" method="post">
+                    <input type="text" name="name" placeholder="Nome do Sensor" required/>
+                    <input type="text" name="unit" placeholder="Unidade de Medida" required/>
+                    <input type="text" name="topic" placeholder="Tópico MQTT" required/>
+                    <div>
+                        <input type="checkbox" id="is_active_sensor" name="is_active" checked />
+                        <label for="is_active_sensor">Ativo?</label>
+                    </div>
+                    <button type="submit">Cadastrar</button>
+                </form>
             </div>
         </div>
-        <div class="right-column">
-            <div class="box dark-box">
-                <div class="box-title">Sensores e Dados</div>
-                <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-                {% if sensors|length> 0 %}
-                    <table>
-                        <tbody>
-                            {% for sensor in sensors %}
-                            <tr>
-                                <td>{{ sensor.name }}</td>
-                                <td>{{ sensor.topic }}</td> 
-                                <td>{{ sensor.unit }}</td>
-                                {% if sensor.is_active == true %}
-                                    <td>Ativo</td>
-                                {% else %}
-                                    <td>Desativado</td>
-                                {% endif %}
-                                <td><a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a></td>
-                                <td><a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="sub-section">
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        <div class="box-title">Atuadores e Dados</div>
-                        <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-                        <table>
-                            <tbody>
-                                {% for actuator in actuators %}
-                                <tr>
-                                    <td>{{ actuator.name }}</td>
-                                    <td>{{ actuator.topic }}</td> 
-                                    <td>{{ actuator.unit }}</td>
-                                    {% if actuator.is_active == true %}
-                                        <td>Ativo</td>
-                                    {% else %}
-                                        <td>Desativado</td>
-                                    {% endif %}
-                                    <td><a href="http://localhost:8080/edit_actuator?id={{actuator.id}}">Editar</a></td>
-                                    <td><a href="http://localhost:8080/del_actuator?id={{actuator.id}}">Deletar</a></td>
-                      
-                                </tr>
-                            {% endfor %}
-                              </tbody>
-                        </table>
-                    </div>
-                {% else %}
-                    <p>Ainda não tem sensores ou atuadores registrados!<p>
-                {%endif%}
-            </div>
+        <div class="box">
+            <div class="box-title">Planejamento de Irrigação</div>
+            <form action="/publish" method="POST">
+                <button type="submit" name="action" value="abelha">On / Off</button>
+            </form>
+        </div>
+        <div class="box dark-box">
+            <div class="box-title">Sensores e Dados</div>
+            <hr>
+            {% if sensors|length > 0 %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sensor</th>
+                            <th>Tópico</th>
+                            <th>Unidade</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sensor in sensors %}
+                        <tr>
+                            <td>{{ sensor.name }}</td>
+                            <td>{{ sensor.topic }}</td> 
+                            <td>{{ sensor.unit }}</td>
+                            <td>{% if sensor.is_active %}Ativo{% else %}Desativado{% endif %}</td>
+                            <td>
+                                <a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a>
+                                <a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Ainda não tem sensores registrados!</p>
+            {% endif %}
+            <div class="box-title">Atuadores e Dados</div>
+            <hr>
+            {% if actuators|length > 0 %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Atuador</th>
+                            <th>Tópico</th>
+                            <th>Unidade</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for actuator in actuators %}
+                        <tr>
+                            <td>{{ actuator.name }}</td>
+                            <td>{{ actuator.topic }}</td> 
+                            <td>{{ actuator.unit }}</td>
+                            <td>{% if actuator.is_active %}Ativo{% else %}Desativado{% endif %}</td>
+                            <td>
+                                <a href="http://localhost:8080/edit_actuator?id={{actuator.id}}">Editar</a>
+                                <a href="http://localhost:8080/del_actuator?id={{actuator.id}}">Deletar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Ainda não tem atuadores registrados!</p>
+            {% endif %}
         </div>
     </div>
 </body>
