@@ -80,63 +80,27 @@
             <div class="box dark-box">
                 <div class="box-title">Sensores e Dados</div>
                 <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-            {% if sensors|length> 0 %}
+                {% if sensors|length> 0 %}
                 <table>
-                    <tr>
-                        <th>Sensor</th>
-                        <th>Valor</th>
-                        <th>Ação</th>
-                    </tr>
-                    {% for sensor_id, sensor in values.items() %}
+                    <tbody>
+                        {% for sensor in sensors %}
                         <tr>
                             <td>{{ sensor.name }}</td>
-                            <td>
-                                {% if "temperatura" in sensor_id %}
-                                    {{ sensor.value }} °C
-                                {% elif "umidade" in sensor_id or "agua" in sensor_id %}
-                                    {{ sensor.value }} %
-                                {% else %}
-                                    {{ sensor.value }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                <form action="/del_sensor_abelhas" method="POST">
-                                    <input type="hidden" name="sensor_name" value="{{ sensor.name }}">
-                                    <input type="submit" value="Deletar" />
-                                </form>
-                            </td>
+                            <td>{{ sensor.topic }}</td> 
+                            <td>{{ sensor.unit }}</td>
+                            {% if sensor.is_active == true %}
+                                <td>Ativo</td>
+                            {% else %}
+                                <td>Desativado</td>
+                            {% endif %}
+                            <td><a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a></td>
+                            <td><a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a></td>
                         </tr>
-                    {% endfor %}
+                        {% endfor %}
+                      </tbody>
                 </table>
                 
-                <div class="sub-section">
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    <div class="box-title">Umidade do Ar</div>
-                    <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-                    <table>
-                        <tr>
-                            <th>Atuador</th>
-                            <th>Valor</th>
-                        </tr>
-                        {% for key, atuador in atuadores.items() %}
-                            <tr>
-                                <td>
-                                    {{ atuador.name }}
-                                </td>
-                                <td>
-                                    {% if (atuador.value == 'LIGADO') %}
-                                        LIGADO
-                                    {% elif (atuador.value == 'DESLIGADA') %}
-                                        DESLIGADO
-                                    {% else %}
-                                        {{ atuador.value }}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {%endif%}
+                {%endif%}
             </div>
         </div>
     </div>

@@ -5,7 +5,8 @@ sensors_abelhas_ = Blueprint('sensor_abelhas', __name__, template_folder='views'
 
 @sensors_abelhas_.route('/abelhasadm')
 def abelhasadm():
-    return render_template('abelhasadm.html')
+    sensors = Sensor_abelhas.get_sensors()
+    return render_template('abelhasadm.html', sensors=sensors)
 
 @sensors_abelhas_.route('/add_sensor_abelhas', methods=['POST'])
 def add_sensor_abelhas():
