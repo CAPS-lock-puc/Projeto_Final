@@ -1,12 +1,14 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 from models.iot.sensors_abelhas import Sensor_abelhas
+from models.iot.actuators_abelhas import Actuator_abelhas
 
 sensors_abelhas_ = Blueprint('sensor_abelhas', __name__, template_folder='views')
 
 @sensors_abelhas_.route('/abelhasadm')
 def abelhasadm():
     sensors = Sensor_abelhas.get_sensors()
-    return render_template('abelhasadm.html', sensors=sensors)
+    actuators = Actuator_abelhas.get_actuators()
+    return render_template('abelhasadm.html', sensors=sensors, actuators=actuators)
 
 @sensors_abelhas_.route('/add_sensor_abelhas', methods=['POST'])
 def add_sensor_abelhas():

@@ -81,25 +81,50 @@
                 <div class="box-title">Sensores e Dados</div>
                 <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
                 {% if sensors|length> 0 %}
-                <table>
-                    <tbody>
-                        {% for sensor in sensors %}
-                        <tr>
-                            <td>{{ sensor.name }}</td>
-                            <td>{{ sensor.topic }}</td> 
-                            <td>{{ sensor.unit }}</td>
-                            {% if sensor.is_active == true %}
-                                <td>Ativo</td>
-                            {% else %}
-                                <td>Desativado</td>
-                            {% endif %}
-                            <td><a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a></td>
-                            <td><a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a></td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                </table>
-                
+                    <table>
+                        <tbody>
+                            {% for sensor in sensors %}
+                            <tr>
+                                <td>{{ sensor.name }}</td>
+                                <td>{{ sensor.topic }}</td> 
+                                <td>{{ sensor.unit }}</td>
+                                {% if sensor.is_active == true %}
+                                    <td>Ativo</td>
+                                {% else %}
+                                    <td>Desativado</td>
+                                {% endif %}
+                                <td><a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a></td>
+                                <td><a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="sub-section">
+                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        <div class="box-title">Atuadores e Dados</div>
+                        <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
+                        <table>
+                            <tbody>
+                                {% for actuator in actuators %}
+                                <tr>
+                                    <td>{{ actuator.name }}</td>
+                                    <td>{{ actuator.topic }}</td> 
+                                    <td>{{ actuator.unit }}</td>
+                                    {% if actuator.is_active == true %}
+                                        <td>Ativo</td>
+                                    {% else %}
+                                        <td>Desativado</td>
+                                    {% endif %}
+                                    <td><a href="http://localhost:8080/edit_actuator?id={{actuator.id}}">Editar</a></td>
+                                    <td><a href="http://localhost:8080/del_actuator?id={{actuator.id}}">Deletar</a></td>
+                      
+                                </tr>
+                            {% endfor %}
+                              </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>Ainda não tem sensores ou atuadores registrados!<p>
                 {%endif%}
             </div>
         </div>

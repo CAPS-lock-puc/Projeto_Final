@@ -15,3 +15,9 @@ class Actuator_abelhas(db.Model):
         device.actuators_abelhas.append(actuator_abelha)
         db.session.add(device)
         db.session.commit()
+
+    def get_actuators():
+        actuators = Actuator_abelhas.query.join(Device, Device.id == Actuator_abelhas.device_id)\
+            .add_columns(Device.id, Device.name, Device.is_active,
+                         Actuator_abelhas.topic, Actuator_abelhas.unit).all()
+        return actuators
