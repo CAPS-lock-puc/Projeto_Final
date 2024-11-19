@@ -38,3 +38,9 @@ def update_sensor_abelhas():
     Sensor_abelhas.update_sensor_abelhas(id, name, topic, unit, is_active)
 
     return redirect(url_for('sensor_abelhas.abelhasadm'))
+
+@sensors_abelhas_.route('/del_sensor_abelhas', methods=['GET'])
+def del_sensor_abelhas():
+    id = request.args.get('id', None)
+    sensor = Sensor_abelhas.delete_sensor_abelhas(id)
+    return redirect(url_for('sensor_abelhas.abelhasadm'))

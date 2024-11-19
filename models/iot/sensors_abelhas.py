@@ -40,3 +40,13 @@ class Sensor_abelhas(db.Model):
             device.is_active = is_active
             db.session.commit()
             return Sensor_abelhas.get_sensors()
+        
+    def delete_sensor_abelhas(id):
+        device = Device.query.filter(Device.id==id).first()
+        sensor = Sensor_abelhas.query.filter(Sensor_abelhas.device_id==id).first()
+
+        db.session.delete(sensor)
+        db.session.delete(device)
+        db.session.commit()
+
+        return Sensor_abelhas.get_sensors()
