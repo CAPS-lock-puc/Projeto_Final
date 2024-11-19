@@ -211,10 +211,12 @@
                         {% for sensor in sensors %}
                         <tr>
                             <td>{{ sensor.name }}</td>
-                            <td>{{ sensor.topic }}</td> 
                             <td>{{ sensor.unit }}</td>
+                            <td>{{ sensor.topic }}</td> 
                             <td>{% if sensor.is_active %}Ativo{% else %}Desativado{% endif %}</td>
+                            {% if historico_abelhas|length> 0 %}
                             <td>{{ last_values[sensor.id] }}</td>
+                            {% endif %}
                             <td>
                                 <a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a>
                                 <a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a>
@@ -236,7 +238,6 @@
                             <th>Tópico</th>
                             <th>Unidade</th>
                             <th>Status</th>
-                            <th>Valor</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -244,10 +245,9 @@
                         {% for actuator in actuators %}
                         <tr>
                             <td>{{ actuator.name }}</td>
-                            <td>{{ actuator.topic }}</td> 
                             <td>{{ actuator.unit }}</td>
+                            <td>{{ actuator.topic }}</td> 
                             <td>{% if actuator.is_active %}Ativo{% else %}Desativado{% endif %}</td>
-                            <td>Aqui ó</td>
                             <td>
                                 <a href="http://localhost:8080/edit_actuator?id={{actuator.id}}">Editar</a>
                                 <a href="http://localhost:8080/del_actuator?id={{actuator.id}}">Deletar</a>

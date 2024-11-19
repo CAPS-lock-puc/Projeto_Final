@@ -1,5 +1,6 @@
 from models.db import db
 from models.iot.devices import Device
+from models.iot.sensors_abelhas import Sensor_abelhas
 
 class Actuator_abelhas(db.Model):
     __tabblename__ = 'actuators_abelhas'
@@ -21,3 +22,17 @@ class Actuator_abelhas(db.Model):
             .add_columns(Device.id, Device.name, Device.is_active,
                          Actuator_abelhas.topic, Actuator_abelhas.unit).all()
         return actuators
+    
+    def deactivate_actuators():
+        actuators = Actuator_abelhas.query.all()
+        for actuator in actuators:
+            actuator.device.is_active = False
+            db.session.add(actuator.device)
+        db.session.commit()
+
+    def activate_actuators():
+        actuators = Actuator_abelhas.query.all()
+        for actuator in actuators:
+            actuator.device.is_active = True
+            db.session.add(actuator.device)
+        db.session.commit()

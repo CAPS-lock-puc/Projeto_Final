@@ -20,6 +20,11 @@ def get_historico_abelhas():
             for sensor in sensors
         }
 
+        if any(value is not None and value < 50 for value in last_values.values()):
+                Actuator_abelhas.deactivate_actuators()
+        elif any (value is not None and value >= 50 for value in last_values.values()):
+                Actuator_abelhas.activate_actuators()
+
         return render_template('abelhasadm.html',
                                historico_abelhas=historico_abelhas,
                                sensors=sensors,
