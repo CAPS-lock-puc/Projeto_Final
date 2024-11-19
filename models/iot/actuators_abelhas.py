@@ -23,6 +23,14 @@ class Actuator_abelhas(db.Model):
                          Actuator_abelhas.topic, Actuator_abelhas.unit).all()
         return actuators
     
+    def get_single_actuator(id):
+        actuator = Actuator_abelhas.query.filter(Actuator_abelhas.device_id==id).first()
+        if actuator is not None:
+            actuator = Actuator_abelhas.query.filter(Actuator_abelhas.device_id==id)\
+                .join(Device).add_columns(Device.id, Device.name, Device.is_active,
+                                          Actuator_abelhas.topic, Actuator_abelhas.unit).first()
+            return [actuator]
+    
     def deactivate_actuators():
         actuators = Actuator_abelhas.query.all()
         for actuator in actuators:
@@ -36,3 +44,14 @@ class Actuator_abelhas(db.Model):
             actuator.device.is_active = True
             db.session.add(actuator.device)
         db.session.commit()
+
+    def update_actuator_abelhas(id, name, unit, topic, is_active):
+        device = Device.query.filter(Device.id==id).first()
+        actuator_abelhas = Actuator_abelhas.query.filter(Actuator_abelhas.device_id==id).first()
+        if device is not None:
+            device.name = name
+            actuator_abelhas.unit = unit
+            actuator_abelhas.topic = topic
+            device.is_active = is_active
+            db.session.commit()
+            return Actuator_abelhas.get_actuators()

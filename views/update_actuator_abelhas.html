@@ -1,0 +1,32 @@
+{% extends "baseadm.html" %}
+{% block title %}ABELHAS: UPDATE_SENSOR{% endblock %}
+
+{% block content %}
+<div class="vertical-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+                    {%for actuators in actuators%}
+                        <form action = "http://localhost:8080/update_actuator_abelhas" method = "post">
+                            <p>id:</p>
+                            <p><input type = "text" name = "id" value= "{{actuators.id}}" readonly/></p>
+                            <p>Nome:</p>
+                            <p><input type = "text" name = "name" value= "{{actuators.name}}" required/></p>
+                            <p>Unidade de Medida:</p>
+                            <p><input type = "text" name = "unit" value='{{actuators.topic}}' required/></p>
+                            <p>Tópico MQTT:</p>
+                            <p><input type = "text" name = "topic" value='{{actuators.unit}}' required/></p>
+                            <div>
+                                <input type="checkbox" id="is_active" name="is_active" checked />
+                                <label for="is_active">Ativo?</label>
+                            </div>
+                    {%endfor%}
+                        <p><input type = "submit" value = "Alterar" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
