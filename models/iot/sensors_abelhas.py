@@ -21,3 +21,11 @@ class Sensor_abelhas(db.Model):
             .add_columns(Device.id, Device.name, Device.is_active,
                          Sensor_abelhas.topic, Sensor_abelhas.unit).all()
         return sensors
+    
+    def get_single_sensor(id):
+        sensor = Sensor_abelhas.query.filter(Sensor_abelhas.device_id==id).first()
+        if sensor is not None:
+            sensor = Sensor_abelhas.query.filter(Sensor_abelhas.device_id==id)\
+                .join(Device).add_columns(Device.id, Device.name, Device.is_active,
+                                          Sensor_abelhas.topic, Sensor_abelhas.unit).first()
+            return [sensor] 

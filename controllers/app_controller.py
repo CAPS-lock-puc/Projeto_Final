@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from models.db import db, instance
 from controllers.sensors_abelhas_controller import sensors_abelhas_
 from controllers.actuators_abelhas_controller import actuators_abelhas_
+from controllers.historico_abelhas_controller import historico_abelhas
 
 def create_app():
     app = Flask(__name__,
@@ -11,6 +12,7 @@ def create_app():
     
     app.register_blueprint(sensors_abelhas_, url_prefix='/')
     app.register_blueprint(actuators_abelhas_, url_prefix='/')
+    app.register_blueprint(historico_abelhas, url_prefix='/')
 
     app.config['TESTING'] = False
     app.config['SECRET_KEY'] = 'generated-secret-key'
