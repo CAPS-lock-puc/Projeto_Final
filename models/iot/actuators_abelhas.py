@@ -55,3 +55,13 @@ class Actuator_abelhas(db.Model):
             device.is_active = is_active
             db.session.commit()
             return Actuator_abelhas.get_actuators()
+        
+    def delete_actuator_abelhas(id):
+        device = Device.query.filter(Device.id==id).first()
+        actuator = Actuator_abelhas.query.filter(Actuator_abelhas.device_id==id).first()
+
+        db.session.delete(actuator)
+        db.session.delete(device)
+        db.session.commit()
+
+        return Actuator_abelhas.get_actuators()

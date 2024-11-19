@@ -31,3 +31,9 @@ def update_actuator_abelhas():
     Actuator_abelhas.update_actuator_abelhas(id, name, topic, unit, is_active)
 
     return redirect(url_for('sensor_abelhas.abelhasadm'))
+
+@actuators_abelhas_.route('/del_actuator_abelhas', methods=['GET'])
+def del_actuator_abelhas():
+    id = request.args.get('id', None)
+    Actuator_abelhas.delete_actuator_abelhas(id)
+    return redirect(url_for('sensor_abelhas.abelhasadm'))

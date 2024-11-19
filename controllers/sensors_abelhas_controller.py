@@ -42,5 +42,5 @@ def update_sensor_abelhas():
 @sensors_abelhas_.route('/del_sensor_abelhas', methods=['GET'])
 def del_sensor_abelhas():
     id = request.args.get('id', None)
-    sensor = Sensor_abelhas.delete_sensor_abelhas(id)
+    Sensor_abelhas.delete_sensor_abelhas(id)
     return redirect(url_for('sensor_abelhas.abelhasadm'))
