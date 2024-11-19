@@ -161,7 +161,7 @@
             </div>
         </div>
         <div class="box">
-            <div class="box-title">Planejamento de Irrigação</div>
+            <div class="box-title">Historico</div>
             <form action="/publish" method="POST">
                 <button type="submit" name="action" value="abelha">On / Off</button>
             </form>
@@ -197,7 +197,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    {% endif %} 
+            {% endif %} 
         </div>
         <div class="box dark-box">
             <div class="box-title">Sensores e Dados</div>
@@ -210,6 +210,9 @@
                             <th>Tópico</th>
                             <th>Unidade</th>
                             <th>Status</th>
+                            {% if historico_abelhas|length> 0 %}
+                            <th>Valor</th>
+                            {% endif %}
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -220,6 +223,11 @@
                             <td>{{ sensor.topic }}</td> 
                             <td>{{ sensor.unit }}</td>
                             <td>{% if sensor.is_active %}Ativo{% else %}Desativado{% endif %}</td>
+                            {% if historico_abelhas|length> 0 %}
+                            {% for historico_abelhas in historico_abelhas %}
+                                <td>{{ historico_abelhas.value }}</td>
+                            {% endfor %}
+                            {% endif %} 
                             <td>
                                 <a href="http://localhost:8080/edit_sensor?id={{sensor.id}}">Editar</a>
                                 <a href="http://localhost:8080/del_sensor?id={{sensor.id}}">Deletar</a>
@@ -241,6 +249,7 @@
                             <th>Tópico</th>
                             <th>Unidade</th>
                             <th>Status</th>
+                            <th>Valor</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -251,6 +260,7 @@
                             <td>{{ actuator.topic }}</td> 
                             <td>{{ actuator.unit }}</td>
                             <td>{% if actuator.is_active %}Ativo{% else %}Desativado{% endif %}</td>
+                            <td>Aqui ó</td>
                             <td>
                                 <a href="http://localhost:8080/edit_actuator?id={{actuator.id}}">Editar</a>
                                 <a href="http://localhost:8080/del_actuator?id={{actuator.id}}">Deletar</a>

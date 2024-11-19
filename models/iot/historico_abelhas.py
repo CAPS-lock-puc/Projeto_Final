@@ -13,7 +13,7 @@ class Historico_abelhas(db.Model):
     def save_historico_abelhas(id, value):
         sensor_abelhas = Sensor_abelhas.query.filter(Sensor_abelhas.id == id).first()
         device = Device.query.filter(Device.id == sensor_abelhas.device_id).first()
-        if (sensor_abelhas is not None):
+        if (sensor_abelhas is not None)and (device.is_active==True):
             historico_abelhas = Historico_abelhas(data=datetime.now(),
                                                   sensor_abelhas_id=sensor_abelhas.id,
                                                   value=float(value))
