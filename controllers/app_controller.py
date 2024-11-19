@@ -47,6 +47,13 @@ def create_app():
 
     topic_abelhas_sensor = 'abelhas_sensor'
     topic_pancs_sensor = 'pancs_sensor'
+    topico_vacas_sensor = 'vacas_sensor'
+    topico_peixes_sensor = 'peixes_sensor'
+    topico_abelhas_atuador = 'abelhas_atuador'
+    topico_pancs_atuador = 'pancs_atuador'
+    topico_vacas_atuador = 'vacas_atuador'
+    topico_peixes_atuador = 'peixes_atuador'
+
     
     @app.route('/')
     def index():
@@ -74,6 +81,13 @@ def create_app():
         if rc == 0:
             mqtt_client.subscribe(topic_abelhas_sensor)
             mqtt_client.subscribe(topic_pancs_sensor)
+
+            mqtt_client.subscribe(topico_vacas_sensor)
+            mqtt_client.subscribe(topico_peixes_sensor)
+            mqtt_client.subscribe(topico_abelhas_atuador)
+            mqtt_client.subscribe(topico_pancs_atuador)
+            mqtt_client.subscribe(topico_vacas_atuador)
+            mqtt_client.subscribe(topico_peixes_atuador)
             print("Broker Connected Successfully")
         else:
             print('Bad Connection Returned code=', rc)
