@@ -11,9 +11,17 @@ def get_historico_abelhas():
         id = request.form['id']
         start = request.form['start']
         end = request.form['end']
-        historico_abelhas = Historico_abelhas.get_historico_abelhas(id, start ,end)
+        historico_abelhas = Historico_abelhas.get_historico_abelhas(id, start, end)
 
-        sensors= Sensor_abelhas.get_sensors()
+        sensors = Sensor_abelhas.get_sensors()
         actuators = Actuator_abelhas.get_actuators()
-        return render_template('abelhasadm.html', historico_abelhas=historico_abelhas,
-                                                    sensors=sensors, actuators=actuators)
+        last_values = {
+            sensor.id: Historico_abelhas.get_last_value(sensor.id)
+            for sensor in sensors
+        }
+
+        return render_template('abelhasadm.html',
+                               historico_abelhas=historico_abelhas,
+                               sensors=sensors,
+                               actuators=actuators,
+                               last_values=last_values)

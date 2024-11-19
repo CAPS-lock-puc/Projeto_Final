@@ -5,9 +5,9 @@ from models.db import db, instance
 from controllers.sensors_abelhas_controller import sensors_abelhas_
 from controllers.actuators_abelhas_controller import actuators_abelhas_
 from controllers.historico_abelhas_controller import historico_abelhas
-from controllers.actuators_pancs_controller import actuators_pancs
-from controllers.sensors_pancs_controller import sensors_pancs
-from controllers.historico_pancs_controller import historico_pancs
+# from controllers.actuators_pancs_controller import actuators_pancs
+# from controllers.sensors_pancs_controller import sensors_pancs
+# from controllers.historico_pancs_controller import historico_pancs
 from models.iot.historico_abelhas import Historico_abelhas
 
 def create_app():
@@ -19,9 +19,9 @@ def create_app():
     app.register_blueprint(sensors_abelhas_, url_prefix='/')
     app.register_blueprint(actuators_abelhas_, url_prefix='/')
     app.register_blueprint(historico_abelhas, url_prefix='/')
-    app.register_blueprint(historico_pancs, url_prefix='/')
-    app.register_blueprint(sensors_pancs, url_prefix='/')
-    app.register_blueprint(actuators_pancs, url_prefix='/')
+    # app.register_blueprint(historico_pancs, url_prefix='/')
+    # app.register_blueprint(sensors_pancs, url_prefix='/')
+    # app.register_blueprint(actuators_pancs, url_prefix='/')
 
     app.config['TESTING'] = False
     app.config['SECRET_KEY'] = 'generated-secret-key'
