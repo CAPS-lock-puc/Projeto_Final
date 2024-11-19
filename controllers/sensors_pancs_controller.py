@@ -20,3 +20,27 @@ def add_sensor_pancs():
     Sensor_pancs.save_sensor_pancs(name, topic, unit, is_active)
 
     return redirect(url_for('sensor_pancs.pancsadm'))
+
+@sensors_pancs_.route('/edit_sensor_pancs')
+def edit_sensor_pancs():
+    id = request.args.get('id', None)
+    sensor = Sensor_pancs.get_single_sensor(id)
+    return render_template('update_sensor_pancs.html', sensor=sensor)
+
+@sensors_pancs_.route('/update_sensor_pancs', methods=['POST'])
+def update_sensor_pancs():
+    id = request.form['id']
+    name = request.form['name']
+    topic = request.form['topic']
+    unit = request.form['unit']
+    is_active = True if request.form.get("is_active") == "on" else False
+
+    Sensor_pancs.update_sensor_pancs(id, name, topic, unit, is_active)
+
+    return redirect(url_for('sensor_pancs.pancsadm'))
+
+@sensors_pancs_.route('/del_sensor_pancs', methods=['GET'])
+def del_sensor_pancs():
+    id = request.args.get('id', None)
+    Sensor_pancs.delete_sensor_pancs(id)
+    return redirect(url_for('sensor_pancs.pancsadm'))

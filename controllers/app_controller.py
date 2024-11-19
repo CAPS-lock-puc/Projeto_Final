@@ -5,10 +5,11 @@ from models.db import db, instance
 from controllers.sensors_abelhas_controller import sensors_abelhas_
 from controllers.actuators_abelhas_controller import actuators_abelhas_
 from controllers.historico_abelhas_controller import historico_abelhas
-# from controllers.actuators_pancs_controller import actuators_pancs
-# from controllers.sensors_pancs_controller import sensors_pancs
-# from controllers.historico_pancs_controller import historico_pancs
+from controllers.actuators_pancs_controller import actuators_pancs_
+from controllers.sensors_pancs_controller import sensors_pancs_
+from controllers.historico_pancs_controller import historico_pancs
 from models.iot.historico_abelhas import Historico_abelhas
+from models.iot.historico_pancs import Historico_pancs
 
 def create_app():
     app = Flask(__name__,
@@ -19,9 +20,9 @@ def create_app():
     app.register_blueprint(sensors_abelhas_, url_prefix='/')
     app.register_blueprint(actuators_abelhas_, url_prefix='/')
     app.register_blueprint(historico_abelhas, url_prefix='/')
-    # app.register_blueprint(historico_pancs, url_prefix='/')
-    # app.register_blueprint(sensors_pancs, url_prefix='/')
-    # app.register_blueprint(actuators_pancs, url_prefix='/')
+    app.register_blueprint(historico_pancs, url_prefix='/')
+    app.register_blueprint(sensors_pancs_, url_prefix='/')
+    app.register_blueprint(actuators_pancs_, url_prefix='/')
 
     app.config['TESTING'] = False
     app.config['SECRET_KEY'] = 'generated-secret-key'
@@ -38,7 +39,7 @@ def create_app():
     db.init_app(app)
 
     topic_abelhas_sensor = 'abelhas_sensor'
-    topic_abelhas_actuator = 'abelhas_actuator'
+    topic_pancs_sensor = 'pancs_sensor'
     
     @app.route('/')
     def index():
@@ -60,7 +61,7 @@ def create_app():
     def handle_connect(client, userdata, flags, rc):
         if rc == 0:
             mqtt_client.subscribe(topic_abelhas_sensor)
-            mqtt_client.subscribe(topic_abelhas_actuator)
+            mqtt_client.subscribe(topic_pancs_sensor)
             print("Broker Connected Successfully")
         else:
             print('Bad Connection Returned code=', rc)
@@ -77,6 +78,13 @@ def create_app():
                 with app.app_context():
                     Historico_abelhas.save_historico_abelhas(js["sensor"], js["valor"])
                     print(f"Salvou leitura no banco: {js}")
+
+            elif message.topic == topic_pancs_sensor:
+                with app.app_context():
+                    Historico_pancs.save_historico_pancs(js["sensor"], js["valor"])
+                    print(f"Salvou leitura no banco: {js}")
+
+            
         except Exception as e:
             print(f"Erro: {e}")
 

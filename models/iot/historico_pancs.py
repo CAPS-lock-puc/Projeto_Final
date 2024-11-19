@@ -25,4 +25,10 @@ class Historico_pancs(db.Model):
         historico_pancs = Historico_pancs.query.filter(Historico_pancs.sensor_pancs_id == sensor_pancs.id,
                                                            Historico_pancs.data >= start,
                                                            Historico_pancs.data <= end).all()
-        return historico_pancs        
+        return historico_pancs     
+
+    def get_last_value(sensor_id):
+        last_entry = Historico_pancs.query.filter(
+            Historico_pancs.sensor_pancs_id == sensor_id
+        ).order_by(Historico_pancs.data.desc()).first()
+        return last_entry.value if last_entry else None   

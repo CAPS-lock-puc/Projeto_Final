@@ -15,5 +15,16 @@ def get_historico_pancs():
 
         sensors= Sensor_pancs.get_sensors()
         actuators = Actuator_pancs.get_actuators()
+        last_values = {
+            sensor.id: Historico_pancs.get_last_value(sensor.id)
+            for sensor in sensors
+        }
+
+        if any(value is not None and value < 50 for value in last_values.values()):
+            Actuator_pancs.deactivate_actuators()
+        elif any(value is not None and value >= 50 for value in last_values.values()):
+            Actuator_pancs.activate_actuators()
+
         return render_template('pancsadm.html', historico_pancs=historico_pancs,
-                                                    sensors=sensors, actuators=actuators)
+                                                    sensors=sensors, actuators=actuators,
+                                                    last_values=last_values)
