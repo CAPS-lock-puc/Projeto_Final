@@ -27,7 +27,7 @@ class Historico_pancs(db.Model):
                                                            Historico_pancs.data <= end).all()
         return historico_pancs     
 
-    def get_last_value(sensor_id):
+    def get_last_value_pancs(sensor_id):
         last_entry = Historico_pancs.query.filter(
             Historico_pancs.sensor_pancs_id == sensor_id
         ).order_by(Historico_pancs.data.desc()).first()

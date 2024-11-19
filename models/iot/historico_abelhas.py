@@ -27,7 +27,7 @@ class Historico_abelhas(db.Model):
                                                            Historico_abelhas.data <= end).all()
         return historico_abelhas        
     
-    def get_last_value(sensor_id):
+    def get_last_value_abelhas(sensor_id):
         last_entry = Historico_abelhas.query.filter(
             Historico_abelhas.sensor_abelhas_id == sensor_id
         ).order_by(Historico_abelhas.data.desc()).first()

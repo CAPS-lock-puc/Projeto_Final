@@ -198,7 +198,7 @@
                             <td>{{ sensor.topic }}</td> 
                             <td>{% if sensor.is_active %}Ativo{% else %}Desativado{% endif %}</td>
                             {% if historico_pancs|length > 0 %}
-                            <td>{{ last_values[sensor.id] }}</td>
+                            <td>{{ last_values_pancs[sensor.id] }}</td>
                             {% endif %}
                             <td>
                                 <a href="http://localhost:8080/edit_sensor_pancs?id={{sensor.id}}">Editar</a>

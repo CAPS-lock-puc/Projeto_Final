@@ -215,7 +215,7 @@
                             <td>{{ sensor.topic }}</td> 
                             <td>{% if sensor.is_active %}Ativo{% else %}Desativado{% endif %}</td>
                             {% if historico_abelhas|length> 0 %}
-                            <td>{{ last_values[sensor.id] }}</td>
+                            <td>{{ last_values_abelhas[sensor.id] }}</td>
                             {% endif %}
                             <td>
                                 <a href="http://localhost:8080/edit_sensor_abelhas?id={{sensor.id}}">Editar</a>

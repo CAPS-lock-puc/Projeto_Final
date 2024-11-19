@@ -8,3 +8,5 @@ class Device(db.Model):
 
     sensors_abelhas = db.relationship('Sensor_abelhas', backref='device', lazy=True)
     actuators_abelhas = db.relationship('Actuator_abelhas', backref='device', lazy=True)
+    sensors_pancs = db.relationship('Sensor_pancs', backref='device', lazy=True)
+    actuators_pancs = db.relationship('Actuator_pancs', backref='device', lazy=True)
