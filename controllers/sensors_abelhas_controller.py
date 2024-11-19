@@ -20,3 +20,21 @@ def add_sensor_abelhas():
     Sensor_abelhas.save_sensor_abelhas(name, topic, unit, is_active)
 
     return redirect(url_for('sensor_abelhas.abelhasadm'))
+
+@sensors_abelhas_.route('/edit_sensor_abelhas')
+def edit_sensor_abelhas():
+    id = request.args.get('id', None)
+    sensor = Sensor_abelhas.get_single_sensor(id)
+    return render_template('update_sensor_abelhas.html', sensor=sensor)
+
+@sensors_abelhas_.route('/update_sensor_abelhas', methods=['POST'])
+def update_sensor_abelhas():
+    id = request.form['id']
+    name = request.form['name']
+    topic = request.form['topic']
+    unit = request.form['unit']
+    is_active = True if request.form.get("is_active") == "on" else False
+
+    Sensor_abelhas.update_sensor_abelhas(id, name, topic, unit, is_active)
+
+    return redirect(url_for('sensor_abelhas.abelhasadm'))
