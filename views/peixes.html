@@ -1,89 +1,100 @@
 {% extends "base.html" %}
 
-{% block title %}PEIXES: USUÁRIOS{% endblock %}
+{% block title %}PEIXES: ADMINISTRADOR{% endblock %}
 
 {% block extra_head %}
     <meta http-equiv="refresh" content="3">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/peixes.css">
     <style>
-        /* Add any additional styles here */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        :root {
+            --primary-color: #1E88E5;
+            --secondary-color: #1565C0;
+            --background-color: #E3F2FD;
+            --box-background: #ffffff;
+            --text-color: #333333;
+            --text-color-light: #ffffff;
         }
-        .left-column, .right-column {
-            flex: 1;
-            min-width: 300px;
-            margin: 10px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        h1 {
+            grid-column: 1 / -1;
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
         .box {
-            background-color: #fff;
+            background-color: var(--box-background);
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .box-title {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-bottom: 15px;
             font-weight: bold;
-            margin-bottom: 10px;
         }
         .dark-box {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
         }
-        .sub-section {
-            margin-top: 20px;
-        }
-        .arrow {
-            font-size: 1.2em;
+        .dark-box .box-title {
+            color: var(--text-color-light);
         }
         .infos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 10px;
         }
+        .arrow {
+            font-size: 1.2em;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 20px 0;
+        }
+        .sub-section {
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>PEIXES: USUÁRIOS</h1>
-        <div class="left-column">
-            <div class="box">
-                <div class="box-title">Alertas Pendentes:</div>
-                <p>Nenhum alerta no momento.</p>
-            </div>
-            <div class="box sub-section">
-                <div class="box-title">
-                    Histórico de Saúde
-                    <span class="arrow">↗</span>
-                </div>
+        <h1>PEIXES: USUÁRIO</h1>
+        <div class="box">
+            <div class="box-title">Alertas Pendentes:</div>
+            <p>Nenhum alerta no momento.</p>
+        </div>
+        <div class="box">
+            <div class="box-title">
+                Histórico de Saúde
+                <span class="arrow">↗</span>
             </div>
         </div>
-        <div class="right-column">
-            <div class="box dark-box">
-                <div class="box-title">Sensores</div>
-                <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-                <div class="infos">
-                {% for sensor_id, sensor in values.items() %}
-                    <div>
-                        <strong>{{ sensor.name }}:</strong>
-                        {% if "temp" in sensor_id %}
-                            {{ sensor.value }} °C
-                        {% else %}
-                            {{ sensor.value }}
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                </div> 
-                <div class="sub-section">
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    <div class="box-title">Sistema</div>
-                    <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
-                    <p>Programacao Alimentaçao</p>
+        <div class="box dark-box">
+            <div class="box-title">Sensores</div>
+            <hr>
+            <div class="infos">
+                <div>
+                    <strong>sensor:</strong>
                 </div>
+            </div> 
+            <div class="sub-section">
+                <div class="box-title">Sistema</div>
+                <hr>
+                <p>Programacao Alimentaçao</p>
             </div>
         </div>
     </div>

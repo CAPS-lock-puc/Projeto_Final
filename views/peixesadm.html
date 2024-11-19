@@ -6,38 +6,50 @@
     <meta http-equiv="refresh" content="3">
     <style>
         :root {
-            --primary-color: #1E88E5;
-            --secondary-color: #1565C0;
-            --background-color: #E3F2FD;
+            --primary-color: #0077be;
+            --secondary-color: #005f8b;
+            --background-color: #f0f8ff;
             --box-background: #ffffff;
             --text-color: #333333;
             --text-color-light: #ffffff;
+        }
+        body {
+            background-color: var(--background-color);
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            padding: 20px;
         }
         h1 {
             grid-column: 1 / -1;
             color: var(--primary-color);
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .box {
             background-color: var(--box-background);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
         .box-title {
             color: var(--primary-color);
-            font-size: 1.2em;
-            margin-bottom: 15px;
+            font-size: 1.4em;
+            margin-bottom: 20px;
             font-weight: bold;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
         }
         .dark-box {
             background-color: var(--primary-color);
@@ -45,14 +57,19 @@
         }
         .dark-box .box-title {
             color: var(--text-color-light);
+            border-bottom-color: var(--text-color-light);
         }
         .infos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
+            gap: 15px;
         }
         .arrow {
             font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+        .box:hover .arrow {
+            transform: translateX(5px);
         }
         hr {
             border: none;
@@ -60,7 +77,33 @@
             margin: 20px 0;
         }
         .sub-section {
-            margin-top: 20px;
+            margin-top: 25px;
+        }
+        form {
+            display: grid;
+            gap: 15px;
+        }
+        input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         @media (max-width: 768px) {
             .container {
@@ -74,29 +117,49 @@
     <div class="container">
         <h1>PEIXES: ADMINISTRADOR</h1>
         <div class="box">
-            <div class="box-title">Alertas Pendentes:</div>
+            <div class="box-title">Alertas Pendentes</div>
             <p>Nenhum alerta no momento.</p>
         </div>
         <div class="box">
             <div class="box-title">
                 Histórico de Saúde
-                <span class="arrow">↗</span>
+                <span class="arrow">→</span>
             </div>
+            <p>Dados históricos de saúde dos peixes serão exibidos aqui.</p>
+        </div>
+        <div class="box">
+            <div class="box-title">Cadastro Actuators</div>
+            <form action="http://localhost:8080/add_actuator_pancs" method="post">
+                <input type="text" name="name" placeholder="Nome do Atuador" required/>
+                <input type="text" name="unit" placeholder="Unidade de Medida" required/>
+                <input type="text" name="topic" placeholder="Tópico MQTT" required/>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="is_active_actuator" name="is_active" checked />
+                    <label for="is_active_actuator">Ativo?</label>
+                </div>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        <div class="box">
+            <div class="box-title">Cadastro Sensores</div>
+            <form action="http://localhost:8080/add_sensor_pancs" method="post">
+                <input type="text" name="name" placeholder="Nome do Sensor" required/>
+                <input type="text" name="unit" placeholder="Unidade de Medida" required/>
+                <input type="text" name="topic" placeholder="Tópico MQTT" required/>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="is_active_sensor" name="is_active" checked />
+                    <label for="is_active_sensor">Ativo?</label>
+                </div>
+                <button type="submit">Cadastrar</button>
+            </form>
         </div>
         <div class="box dark-box">
             <div class="box-title">Sensores</div>
             <hr>
             <div class="infos">
-            {% for sensor_id, sensor in values.items() %}
-                <div>
-                    <strong>{{ sensor.name }}:</strong>
-                    {% if "temp" in sensor_id %}
-                        {{ sensor.value }} °C
-                    {% else %}
-                        {{ sensor.value }}
-                    {% endif %}
-                </div>
-            {% endfor %}
+                    <div>
+                        <strong>sensor:</strong>
+                    </div>
             </div> 
             <div class="sub-section">
                 <div class="box-title">Sistema</div>

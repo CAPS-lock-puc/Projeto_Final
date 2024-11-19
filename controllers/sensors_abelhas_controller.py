@@ -4,6 +4,13 @@ from models.iot.actuators_abelhas import Actuator_abelhas
 
 sensors_abelhas_ = Blueprint('sensor_abelhas', __name__, template_folder='views')
 
+@sensors_abelhas_.route('/abelhas')
+def abelhas():
+    sensors = Sensor_abelhas.get_sensors()
+    actuators = Actuator_abelhas.get_actuators()
+    return render_template('abelhas.html', sensors=sensors, actuators=actuators)
+
+
 @sensors_abelhas_.route('/abelhasadm')
 def abelhasadm():
     sensors = Sensor_abelhas.get_sensors()

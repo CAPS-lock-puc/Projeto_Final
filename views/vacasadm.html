@@ -107,14 +107,6 @@
                         <th>Vaca</th>
                         <th>Peso</th>
                     </tr>
-                    {% for vaca in values.values() %}
-                        {% for peso in vaca.peso_historico %}
-                        <tr>
-                            <td>{{ vaca.name }}</td> 
-                            <td>{{ peso }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% endfor %}
                 </table>
                 <div class="botao_funcao">
                     <form action="http://192.168.15.117:80/publish" method="POST">
@@ -134,14 +126,12 @@
                             <th>Vaca</th>
                             <th>Peso</th>
                         </tr>
-                        {% for key, vaca in values.items() %}
                             <tr>
-                                <td>{{ vaca.name }}</td>
+                                nome dos valores
                                 <td>
-                                    {{ vaca.value }}
+                                    valores
                                 </td>
                             </tr>
-                        {% endfor %}
                     </table>
                 </div> 
                 <div class="sub-section">
@@ -153,22 +143,14 @@
                                 <th>Atuador</th>
                                 <th>Valor</th>
                             </tr>
-                            {% for key, atuador in atuadores.items() %}
                                 <tr>
                                     <td>
-                                        {{ atuador.name }}
+                                       portão
                                     </td>
                                     <td>
-                                        {% if (atuador.value == 'ABRINDO') %}
-                                            ABERTO
-                                        {% elif (atuador.value == 'FECHANDO') %}
-                                            FECHADO
-                                        {% else %}
-                                            {{ atuador.value }}
-                                        {% endif %}
+                                      fechado
                                     </td>
                                 </tr>
-                            {% endfor %}
                         </table>
                     </div>
                 </div>

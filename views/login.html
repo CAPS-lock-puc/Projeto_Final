@@ -5,14 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="../static/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--text-color);
+        }
+
+        .container {
+            display: flex;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .left-half {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-bottom-color: var(--primary-color);
+            outline: none;
+        }
+
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .right-half {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .right-half::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            top: -50%;
+            left: -50%;
+        }
+
+        .user-icon {
+            width: 180px;
+            height: 180px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .user-icon img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-half, .right-half {
+                padding: 40px;
+            }
+
+            .right-half {
+                order: -1;
+            }
+
+            .user-icon {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <form action="{{ url_for('usuario.validated_user') }}" class="left-half" method="post">
-            <h1>Login</h1>
-            <input type="text" name="user" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="submit" class="button" placeholder="Enviar">
+            <h1>Bem-vindo</h1>
+            <input type="text" name="user" placeholder="Nome de usuário" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <input type="submit" class="button" value="Entrar">
         </form>
         <div class="right-half">
             <div class="user-icon">

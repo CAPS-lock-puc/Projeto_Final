@@ -4,6 +4,14 @@ from models.iot.actuators_pancs import Actuator_pancs
 
 sensors_pancs_ = Blueprint('sensor_pancs', __name__, template_folder='views')
 
+
+@sensors_pancs_.route('/pancs')
+def pancs():
+    sensors = Sensor_pancs.get_sensors()
+    actuators = Actuator_pancs.get_actuators()
+    return render_template('pancs.html', sensors=sensors, actuators=actuators)
+
+
 @sensors_pancs_.route('/pancsadm')
 def pancsadm():
     sensors = Sensor_pancs.get_sensors()

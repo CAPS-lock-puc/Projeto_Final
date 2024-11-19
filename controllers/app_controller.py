@@ -11,6 +11,8 @@ from controllers.historico_pancs_controller import historico_pancs
 from models.iot.historico_abelhas import Historico_abelhas
 from models.iot.historico_pancs import Historico_pancs
 from controllers.usuario import usuario
+from controllers.sensor_atuador_vacas import vacas
+from controllers.sensores_atuadores_peixes import peixes
 
 def create_app():
     app = Flask(__name__,
@@ -25,6 +27,9 @@ def create_app():
     app.register_blueprint(sensors_pancs_, url_prefix='/')
     app.register_blueprint(actuators_pancs_, url_prefix='/')
     app.register_blueprint(usuario, url_prefix='/')
+    app.register_blueprint(vacas, url_prefix='/')
+    app.register_blueprint(peixes, url_prefix='/')
+
 
     app.config['TESTING'] = False
     app.config['SECRET_KEY'] = 'generated-secret-key'
@@ -50,6 +55,7 @@ def create_app():
     @app.route('/pancsadm')
     def pancsadm():
         return render_template('pancsadm.html')
+
 
     @app.route('/login')
     def login():

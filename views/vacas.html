@@ -1,145 +1,161 @@
 {% extends "base.html" %}
 
-{% block title %}VACAS: USUÁRIOS{% endblock %}
+{% block title %}VACAS: USUÁRIO{% endblock %}
 
 {% block extra_head %}
-    <meta http-equiv="refresh" content="5">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/vacas.css">
+    <meta http-equiv="refresh" content="10">
     <style>
-        /* Add any additional styles here */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        :root {
+            --primary-color: #795548;
+            --secondary-color: #5D4037;
+            --background-color: #EFEBE9;
+            --box-background: #ffffff;
+            --text-color: #333333;
+            --text-color-light: #ffffff;
         }
-        .left-column, .right-column {
-            flex: 1;
-            min-width: 300px;
-            margin: 10px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        h1 {
+            grid-column: 1 / -1;
+            color: var(--primary-color);
+            text-align: center;
         }
         .box {
-            background-color: #fff;
+            background-color: var(--box-background);
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .box-title {
-            font-weight: bold;
-            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-bottom: 15px;
         }
         .dark-box {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
         }
-        .sub-section {
-            margin-top: 20px;
-        }
-        .arrow {
-            font-size: 1.2em;
+        .dark-box .box-title {
+            color: var(--text-color-light);
         }
         table {
             width: 100%;
             border-collapse: collapse;
         }
         th, td {
-            padding: 8px;
-            text-align: left;
+            padding: 10px;
             border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        .arrow {
+            font-size: 1.2em;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 20px 0;
         }
         .botao_funcao button {
+            background-color: var(--secondary-color);
+            color: var(--text-color-light);
+            border: none;
+            padding: 10px 15px;
             margin: 5px;
-            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>VACAS: USUÁRIOS</h1>
+        <h1>VACAS: ADMINISTRADOR</h1>
         <div class="left-column">
+            <div class="split-box">
+                <div class="box">
+                    <div class="box-title">Alertas Pendentes:</div>
+                    <p>Nenhum alerta no momento.</p>
+                </div>
+
+            </div>
             <div class="box">
-                <div class="box-title">Alertas Pendentes:</div>
-                <p>Nenhum alerta no momento.</p>
+                <div class="box-title">Cadastro de vacas</div>
+                <form action="/add_vaca" method="POST">
+                    <p><label for="vaca_name">Nome do peixe:</label></p>
+                    <p><input type="text" id="vaca_name" name="vaca_name" required></p>
+                    <p><label for="vaca_peso">Peso Inicial:</label></p>
+                    <p><input type="number" step="any" id="vaca_peso" name="vaca_peso" required></p>
+                    <p><input type="submit" value="Cadastrar"></p>
+                </form>
             </div>
             <div class="box sub-section">
                 <div class="box-title">
                     Histórico de Saúde
                     <span class="arrow">↗</span>
-                    <table>
-                        <tr>
-                            <th>Vaca</th>
-                            <th>Peso</th>
-                        </tr>
-                        {% for vaca in values.values() %}
-                            {% for peso in vaca.peso_historico %}
-                            <tr>
-                                <td>{{ vaca.name }}</td> 
-                                <td>{{ peso }}</td>
-                            </tr>
-                            {% endfor %}
-                        {% endfor %}
-                    </table>
-                    <div class="botao_funcao">
-                        <form action="/publish" method="POST">
-                            <button type="submit" name="action" value="vaca_open">Abrir Portão</button>
-                            <button type="submit" name="action" value="vaca_close">Fechar Portão</button>
-                        </form>
-                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Vaca</th>
+                        <th>Peso</th>
+                    </tr>
+                </table>
+                <div class="botao_funcao">
+                    <form action="http://192.168.15.117:80/publish" method="POST">
+                        <button type="submit" name="action" value="vaca_open_adm">Abrir Portão</button>
+                        <button type="submit" name="action" value="vaca_close_adm">Fechar Portão</button>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="right-column">
             <div class="box dark-box">
-                <div class="box-title">Parametros Vitais</div>
-                <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
+                <div class="box-title">Parâmetros Vitais</div>
+                <hr>
                 <div>
                     <table>
                         <tr>
                             <th>Vaca</th>
                             <th>Peso</th>
                         </tr>
-                        {% for key, vaca in values.items() %}
                             <tr>
-                                <td>{{ vaca.name }}</td>
+                                nome dos valores
                                 <td>
-                                    {{ vaca.value }}
+                                    valores
                                 </td>
                             </tr>
-                        {% endfor %}
                     </table>
                 </div> 
                 <div class="sub-section">
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                     <div class="box-title">WebCam</div>
-                    <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
+                    <hr>
                     <div>
                         <table>
                             <tr>
                                 <th>Atuador</th>
                                 <th>Valor</th>
                             </tr>
-                            {% for key, atuador in atuadores.items() %}
                                 <tr>
                                     <td>
-                                        {{ atuador.name }}
+                                       portão
                                     </td>
                                     <td>
-                                        {% if (atuador.value == 'ABRINDO') %}
-                                            ABERTO
-                                        {% elif (atuador.value == 'FECHANDO') %}
-                                            FECHADO
-                                        {% else %}
-                                            {{ atuador.value }}
-                                        {% endif %}
+                                      fechado
                                     </td>
                                 </tr>
-                            {% endfor %}
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}  
+{% endblock %}
