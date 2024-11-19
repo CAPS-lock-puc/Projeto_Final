@@ -10,6 +10,7 @@ from controllers.sensors_pancs_controller import sensors_pancs_
 from controllers.historico_pancs_controller import historico_pancs
 from models.iot.historico_abelhas import Historico_abelhas
 from models.iot.historico_pancs import Historico_pancs
+from controllers.usuario import usuario
 
 def create_app():
     app = Flask(__name__,
@@ -23,6 +24,7 @@ def create_app():
     app.register_blueprint(historico_pancs, url_prefix='/')
     app.register_blueprint(sensors_pancs_, url_prefix='/')
     app.register_blueprint(actuators_pancs_, url_prefix='/')
+    app.register_blueprint(usuario, url_prefix='/')
 
     app.config['TESTING'] = False
     app.config['SECRET_KEY'] = 'generated-secret-key'
@@ -56,6 +58,10 @@ def create_app():
     @app.route('/admpage')
     def admpage():
         return render_template('admpage.html')
+    
+    @app.route('/userpage')
+    def userpage():
+        return render_template('userpage.html')
     
     @mqtt_client.on_connect()
     def handle_connect(client, userdata, flags, rc):
