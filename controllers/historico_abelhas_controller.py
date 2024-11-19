@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 from models.iot.historico_abelhas import Historico_abelhas
 from models.iot.sensors_abelhas import Sensor_abelhas
+from models.iot.actuators_abelhas import Actuator_abelhas
 
 historico_abelhas = Blueprint('historico_abelhas', __name__, template_folder='views')
 
@@ -13,4 +14,6 @@ def get_historico_abelhas():
         historico_abelhas = Historico_abelhas.get_historico_abelhas(id, start ,end)
 
         sensors= Sensor_abelhas.get_sensors()
-        return render_template('abelhasadm.html', historico_abelhas=historico_abelhas, sensors=sensors)
+        actuators = Actuator_abelhas.get_actuators()
+        return render_template('abelhasadm.html', historico_abelhas=historico_abelhas,
+                                                    sensors=sensors, actuators=actuators)
