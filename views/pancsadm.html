@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PANCS: ADMINISTRADOR</title>
+{% extends "baseadm.html" %}
+
+{% block title %}PANCS: ADMINISTRADOR{% endblock %}
+
+{% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/pancsadm.css">
-</head>
-<body>
+    <style>
+        /* Add any additional styles here */
+    </style>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>PANCS: ADMINISTRADOR</h1>
         <div class="left-column">
@@ -58,21 +61,6 @@
                     </form>
                 </div>
             </div>
-            <script>
-                function updateForm(selectElement) {
-                    const selectedValue = selectElement.value;
-                    if (selectedValue !== "|") {
-                        const [sensorOrActuator, currentValue] = selectedValue.split('|');
-                        const form = document.getElementById('selecionado');
-                        form.querySelector('input[name="current_sensor"]').value = sensorOrActuator;
-                        form.querySelector('input[name="configuration"]').value = currentValue;
-                    } else {
-                        const form = document.getElementById('selecionado');
-                        form.querySelector('input[name="current_sensor"]').value = '';
-                        form.querySelector('input[name="configuration"]').value = '';
-                    }
-                }
-            </script>
         </div>
         <div class="right-column">
             <div class="box dark-box">
@@ -144,5 +132,22 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        function updateForm(selectElement) {
+            const selectedValue = selectElement.value;
+            if (selectedValue !== "|") {
+                const [sensorOrActuator, currentValue] = selectedValue.split('|');
+                const form = document.getElementById('selecionado');
+                form.querySelector('input[name="current_sensor"]').value = sensorOrActuator;
+                form.querySelector('input[name="configuration"]').value = currentValue;
+            } else {
+                const form = document.getElementById('selecionado');
+                form.querySelector('input[name="current_sensor"]').value = '';
+                form.querySelector('input[name="configuration"]').value = '';
+            }
+        }
+    </script>
+{% endblock %}

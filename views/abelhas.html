@@ -1,13 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABELHAS: USUÁRIOS</title>
+{% extends "base.html" %}
+
+{% block title %}ABELHAS: USUÁRIOS{% endblock %}
+
+{% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/abelha.css">
-</head>
-<body>
+    <style>
+        /* Add any additional styles here */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+        }
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .box-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .dark-box {
+            background-color: #333;
+            color: #fff;
+        }
+        .sub-section {
+            margin-top: 20px;
+        }
+        .arrow {
+            font-size: 1.2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>ABELHAS: USUÁRIOS</h1>
         <div class="left-column">
@@ -34,15 +77,15 @@
                 <table>
                     {% for sensor_id, sensor in values.items() %}
                         {% if "temperatura" in sensor_id %}
-                            <div>
-                                <span>{{ sensor.name }}</span>
-                                <span id="sensor_temperatura_agua"> {{ sensor.value }} °C</span>
-                            </div>
+                            <tr>
+                                <td>{{ sensor.name }}</td>
+                                <td id="sensor_temperatura_agua">{{ sensor.value }} °C</td>
+                            </tr>
                         {% elif "umidade" in sensor_id or "agua" in sensor_id %}
-                            <div>
-                                <span>{{ sensor.name }}</span>
-                                <span id="sensor_temperatura_agua"> {{ sensor.value }} %</span>
-                            </div>
+                            <tr>
+                                <td>{{ sensor.name }}</td>
+                                <td id="sensor_umidade">{{ sensor.value }} %</td>
+                            </tr>
                         {% endif %}
                     {% endfor %}
                 </table>
@@ -55,5 +98,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
