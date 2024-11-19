@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABELHAS: ADMINISTRADOR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+{% extends "baseadm.html" %}
+
+{% block title %}ABELHAS: ADMINISTRADOR{% endblock %}
+
+{% block extra_head %}
     <style>
         :root {
             --primary-color: #FFB300;
@@ -13,14 +11,6 @@
             --box-background: #ffffff;
             --text-color: #333333;
             --text-color-light: #ffffff;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 20px;
         }
         .container {
             max-width: 1200px;
@@ -127,8 +117,9 @@
             }
         });
     </script>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>ABELHAS: ADMINISTRADOR</h1>
         
@@ -274,5 +265,4 @@
             {% endif %}
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

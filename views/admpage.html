@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Management Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+{% extends "baseadm.html" %}
+
+{% block title %}Farm Management Dashboard{% endblock %}
+
+{% block extra_head %}
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -17,10 +15,7 @@
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
             background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
             color: var(--text-color);
         }
         
@@ -126,8 +121,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <div class="header">
         <h1>O que gostaria de gerenciar hoje?</h1>
         <a href="/gestaouseradm" class="button">Gerenciar Usuários</a>
@@ -158,5 +154,4 @@
             <hr>
         </a>
     </div>
-</body>
-</html>
+{% endblock %}

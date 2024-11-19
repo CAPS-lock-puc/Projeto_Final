@@ -1,14 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEIXES: USUÁRIOS</title>
-    <meta http-equiv="refresh" content="3">
+{% extends "base.html" %}
+
+{% block title %}PEIXES: USUÁRIOS{% endblock %}
+
+{% block extra_head %}
+    <meta http-equiv="refresh" content="3">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/peixes.css">
-</head>
-<body>
+    <style>
+        /* Add any additional styles here */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+        }
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .box-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .dark-box {
+            background-color: #333;
+            color: #fff;
+        }
+        .sub-section {
+            margin-top: 20px;
+        }
+        .arrow {
+            font-size: 1.2em;
+        }
+        .infos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>PEIXES: USUÁRIOS</h1>
         <div class="left-column">
@@ -29,17 +68,14 @@
                 <hr style="border: 1px solid #D0CFCF; margin: 20px 0;">
                 <div class="infos">
                 {% for sensor_id, sensor in values.items() %}
-                        <tr>
-                            <td>{{ sensor.name }}</td>
-                            <td>
-                                {% if "temp" in sensor_id %}
-                                    {{ sensor.value }} °C
-                                    <br>
-                                {% else %}
-                                    {{ sensor.value }}
-                                    <br>
-                                {% endif %}
-                            </td>
+                    <div>
+                        <strong>{{ sensor.name }}:</strong>
+                        {% if "temp" in sensor_id %}
+                            {{ sensor.value }} °C
+                        {% else %}
+                            {{ sensor.value }}
+                        {% endif %}
+                    </div>
                 {% endfor %}
                 </div> 
                 <div class="sub-section">
@@ -51,5 +87,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

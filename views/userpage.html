@@ -1,14 +1,82 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Management Dashboard</title>
+{% extends "base.html" %}
+
+{% block title %}Farm Management Dashboard{% endblock %}
+
+{% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/userpage.css">
-</head>
-<body>
-    <h1 style="font-size: 26px; text-align: center;">O que gostaria de gerenciar hoje?</h1>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            flex: 1 1 calc(25% - 20px);
+            min-width: 200px;
+            max-width: 300px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-dark {
+            background-color: #333;
+            color: #fff;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-subtitle {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>O que gostaria de gerenciar hoje?</h1>
     <div class="container">
         <a href="/abelhas" class="card">
             <div class="card-title">Abelhas</div>
@@ -35,5 +103,4 @@
             <hr>
         </a>
     </div>
-</body>
-</html>
+{% endblock %}
